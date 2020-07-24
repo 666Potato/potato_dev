@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Post a comment</title>
+</head>
+<body>
+    <h1>{{ lesson.topic }}</h1>
+
+    {{% if error_message %}}
+        <p><strong>{{ error_message }}</strong></p>
+    {{% endif %}}
+
+    <form action="" method="post">
+        {{% csrf_token %}}
+        <!-- Create form here   -->
+    </form>
+</body>
+</html>
