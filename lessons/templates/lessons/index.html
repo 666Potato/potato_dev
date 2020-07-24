@@ -8,7 +8,7 @@
     {% if lessons_list %}
         <ul>
             {% for lesson in lessons_list %}
-                <li><a href="#">{{ lesson.topic }}</a></li>
+                <li><a href="{% url 'lessons:detail' lesson.id %}">{{ lesson.topic }}</a></li>
             {% endfor %}
         </ul>
 
