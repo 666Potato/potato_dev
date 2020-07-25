@@ -33,15 +33,7 @@ def comment(request, lesson_id):
 
     # Need to obtain comment_text from form and then assign it to lesson variable
     # declared above. Once it is done, save it with lesson.save()
-    try:
-        """ selected_lesson = request.POST['lesson_id'] """
-    except (KeyError, Comment.DoesNotExist):
-        return render(request, 'lessons:detail.html', {
-            'lesson': lesson,
-            'error_message': "You didn't fill comment section",
-        })
-    else:
-        lesson.comment_text = request.POST['comment_text']  # Gives no value
-        lesson.save()
 
-        return HttpResponseRedirect(reverse('lessons:result', args=(lesson_id,)))
+    Comment.objects.create(topic=lesson, comment_text=request.POST['comment_text'])
+
+    return HttpResponseRedirect(reverse('lessons:result', args=(lesson_id,)))
