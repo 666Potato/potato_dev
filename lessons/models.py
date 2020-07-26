@@ -20,6 +20,7 @@ class Lesson(models.Model):
 class Comment(models.Model):
     topic = models.ForeignKey(Lesson, on_delete=models.CASCADE)
     comment_text = models.CharField(max_length=200)
+    posted_by = models.CharField(max_length=200)
 
     def __str__(self):
         return self.comment_text

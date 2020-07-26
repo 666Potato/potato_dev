@@ -9,7 +9,7 @@
 
     <ul>
         {% for comment in lesson.comment_set.all %}
-            <li>{{comment.comment_text}}</li>
+            <li>{{comment.comment_text}} -- {{comment.posted_by}}</li>
         {% endfor %}
     </ul>
 

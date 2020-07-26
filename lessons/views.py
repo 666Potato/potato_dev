@@ -37,6 +37,6 @@ def comment(request, lesson_id):
     # Need to obtain comment_text from form and then assign it to lesson variable
     # declared above. Once it is done, save it with lesson.save()
 
-    Comment.objects.create(topic=lesson, comment_text=request.POST['comment_text'])
+    Comment.objects.create(topic=lesson, comment_text=request.POST['comment_text'], posted_by=request.POST['author'])
 
     return HttpResponseRedirect(reverse('lessons:result', args=(lesson_id,)))
