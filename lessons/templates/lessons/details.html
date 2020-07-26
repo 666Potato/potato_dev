@@ -11,12 +11,14 @@
         <p><strong>{{ error_message }}</strong></p>
     {% endif %}
 
+    <iframe width="560" height="315" src="{{lesson.video_link}}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
     {% if user.is_authenticated %}
     <form action="{% url 'lessons:comment' lesson.id %}" method="post">
         {% csrf_token %}
         <!-- Create form here   -->
         <input type="hidden" name="author" value="{{ user.username }}">
-        <input type="text" name="comment_text">
+        <input type="text" name="comment_text" placeholder="Type your comment">
         <input type="submit">
     </form>
     {% else %}
