@@ -19,7 +19,7 @@ class IndexView(LoginRequiredMixin, generic.ListView):
 
 class DetailView(LoginRequiredMixin, generic.DetailView):
     model = Lesson
-    template_name = 'lessons/details.html'
+    template_name = 'lessons/left-sidebar.html'
 
     def get_queryset(self):
         return Lesson.objects.all()
