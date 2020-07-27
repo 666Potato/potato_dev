@@ -27,7 +27,7 @@ class DetailView(LoginRequiredMixin, generic.DetailView):
 
 class ResultView(LoginRequiredMixin, generic.DetailView):
     model = Lesson
-    template_name = 'lessons/result.html'
+    template_name = 'lessons/no-sidebar.html'
 
 
 @login_required
