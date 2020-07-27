@@ -8,6 +8,7 @@ class Lesson(models.Model):
     topic = models.CharField(max_length=200)
     author = models.CharField(max_length=200)
     video_link = models.CharField(max_length=200)
+    image_link = models.CharField(max_length=200)
     date_pub = models.DateTimeField('Date Published')
 
     def __str__(self):
