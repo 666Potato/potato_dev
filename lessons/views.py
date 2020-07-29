@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.views import generic
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -39,6 +39,9 @@ def comment(request, lesson_id):
     Comment.objects.create(topic=lesson, comment_text=request.POST['comment_text'], posted_by=request.user)
 
     # Create queryset and transform into json
-    qs = lesson.comment_set.all()
+    number = len(lesson.comment_set.all())
+    print(number)
+
+    qs = lesson.comment_set.filter(pk=number)
     qs_json = serializers.serialize('json', qs)
     return HttpResponse(qs_json, content_type='application/json')
