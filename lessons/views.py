@@ -1,9 +1,10 @@
 from django.shortcuts import render, get_object_or_404
 from django.views import generic
-from django.http import HttpResponseRedirect
+from django.http import HttpResponse
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core import serializers
 
 from .models import Lesson, Comment
 
@@ -34,9 +35,10 @@ class ResultView(LoginRequiredMixin, generic.DetailView):
 def comment(request, lesson_id):
     lesson = get_object_or_404(Lesson, pk=lesson_id)
 
-    # Need to obtain comment_text from form and then assign it to lesson variable
-    # declared above. Once it is done, save it with lesson.save()
+    # Object created
+    Comment.objects.create(topic=lesson, comment_text=request.POST['comment_text'], posted_by=request.user)
 
-    Comment.objects.create(topic=lesson, comment_text=request.POST['comment_text'], posted_by=request.POST['author'])
-
-    return HttpResponseRedirect(reverse('lessons:result', args=(lesson_id,)))
+    # Create queryset and transform into json
+    qs = lesson.comment_set.all()
+    qs_json = serializers.serialize('json', qs)
+    return HttpResponse(qs_json, content_type='application/json')

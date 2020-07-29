@@ -166,7 +166,6 @@
 											<form action="{% url 'lessons:comment' lesson.id %}" method="post">
 												{% csrf_token %}
 												<!-- Create form here   -->
-												<input type="hidden" name="author" value="{{ user.username }}">
 												<input type="text" name="comment_text" placeholder="Type your comment" style="padding:1em 1em 9em; margin-bottom:1em; ">
 												<input type="submit">
 											</form>
@@ -176,14 +175,19 @@
 									</section>
 									<section>
 										<header>
-											<h3>Augue euismod feugiat tempus</h3>
+											<h3>Comments</h3>
 										</header>
 										<p>
-											Pretium tellus in euismod a integer sodales neque. Nibh quis dui quis mattis eget imperdiet venenatis
-											feugiat. Neque primis ligula cum erat aenean tristique luctus risus ipsum praesent iaculis. Fermentum elit
-											ut nunc urna volutpat donec cubilia commodo risus morbi. Lobortis vestibulum velit malesuada ante
-											egestas odio nisl duis sociis purus faucibus morbi. Eget massa mus etiam sociis pharetra magna.
+                                            <ul>
+                                                {% for comment in lesson.comment_set.all %}
+                                                    <li>{{comment.comment_text}} -- {{comment.posted_by}}</li>
+                                                {% endfor %}
+                                            </ul>
 										</p>
+
+                                        <script>
+
+                                        </script>
 									</section>
 								</article>
 							</div>

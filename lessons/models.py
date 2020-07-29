@@ -2,6 +2,7 @@ import datetime
 
 from django.db import models
 from django.utils import timezone
+from django.contrib.auth.models import User
 
 
 class Lesson(models.Model):
@@ -22,7 +23,7 @@ class Lesson(models.Model):
 class Comment(models.Model):
     topic = models.ForeignKey(Lesson, on_delete=models.CASCADE)
     comment_text = models.CharField(max_length=200)
-    posted_by = models.CharField(max_length=200)
+    posted_by = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.comment_text
