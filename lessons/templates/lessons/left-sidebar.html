@@ -163,7 +163,7 @@
 										{% endif %}
 
 										    {% if user.is_authenticated %}
-											<form action="{% url 'lessons:comment' lesson.id %}" method="post">
+											<form action="{% url 'lessons:comment' lesson.id %}" method="post" id="formSubmit">
 												{% csrf_token %}
 												<!-- Create form here   -->
 												<input type="text" name="comment_text" placeholder="Type your comment" style="padding:1em 1em 9em; margin-bottom:1em; ">
@@ -185,19 +185,34 @@
                                             </ul>
 
 											<!--	Unable to resolve how to retrieve json and append it to HTML properly		-->
-											<ul>
-												<li class="newComment"></li>
-											</ul>
+											<div id="result">
+												<div id="contents">
+													<ul>
+														<li class="newComment"></li>
+													</ul>
+												</div>
+											</div>
+
 										</p>
 
                                         <script>
-											$(document).ready(() => {
-												$(document).getJSON("127.0.0.1:8000/lessons/1/comment/", (data) => {
-													$.each(data, (key, val) => {
-														$(.newComment).append(key + ": " + val)
-													})
-												})
-											})
+                                        window.onload = () => {
+
+												$("#formSubmit").submit((event) => {
+													event.preventDefault();
+
+													var $form = $(this),
+													text = $form.find("input[name='comment_text']").val(),
+													url = $form.attr("action");
+
+													var posting = $.post(url, {comment_text: text});
+
+													posting.done((data) => {
+														var content = $(data).find("#contents");
+														$("#result").empty().append(content);
+													});
+												});
+											}
                                         </script>
 									</section>
 								</article>
