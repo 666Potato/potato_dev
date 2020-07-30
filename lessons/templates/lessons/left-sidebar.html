@@ -205,14 +205,15 @@
 													text = $form.find("input[name='comment_text']").val(),
 													url = $form.attr("action");
 
-													var posting = $.post(url, {comment_text: text});
+													var posting = $.post(url, {comment_text: text, csrfmiddlewaretoken: '{{csrf_token}}'});
 
 													posting.done((data) => {
 														var content = $(data).find("#contents");
+														console.log(content);
 														$("#result").empty().append(content);
 													});
 												});
-											}
+											};
                                         </script>
 									</section>
 								</article>
