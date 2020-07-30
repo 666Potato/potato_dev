@@ -183,11 +183,20 @@
                                                     <li>{{comment.comment_text}} -- {{comment.posted_by}}</li>
                                                 {% endfor %}
                                             </ul>
+
+											<!--	Unable to resolve how to retrieve json and append it to HTML properly		-->
+											<ul>
+												<li class="newComment"></li>
+											</ul>
 										</p>
 
                                         <script>
 											$(document).ready(() => {
-
+												$(document).getJSON("127.0.0.1:8000/lessons/1/comment/", (data) => {
+													$.each(data, (key, val) => {
+														$(.newComment).append(key + ": " + val)
+													})
+												})
 											})
                                         </script>
 									</section>

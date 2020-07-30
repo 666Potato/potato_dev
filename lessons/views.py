@@ -40,7 +40,6 @@ def comment(request, lesson_id):
 
     # Create queryset and transform into json
     number = len(lesson.comment_set.all())
-    print(number)
 
     qs = lesson.comment_set.filter(pk=number)
     qs_json = serializers.serialize('json', qs)
