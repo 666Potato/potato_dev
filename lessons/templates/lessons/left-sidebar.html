@@ -182,17 +182,8 @@
                                                 {% for comment in lesson.comment_set.all %}
                                                     <li>{{comment.comment_text}} -- {{comment.posted_by}}</li>
                                                 {% endfor %}
+													<li class="newComment"></li>
                                             </ul>
-
-											<!--	Unable to resolve how to retrieve json and append it to HTML properly		-->
-											<div id="result">
-												<div id="contents">
-													<ul>
-														<li class="newComment"></li>
-													</ul>
-												</div>
-											</div>
-
 										</p>
 
                                         <script>
@@ -201,16 +192,16 @@
 												$("#formSubmit").submit((event) => {
 													event.preventDefault();
 
-													var $form = $(this),
+													var $form = $("#formSubmit"),
 													text = $form.find("input[name='comment_text']").val(),
 													url = $form.attr("action");
-
-													var posting = $.post(url, {comment_text: text, csrfmiddlewaretoken: '{{csrf_token}}'});
+													console.log($form);
+													var posting = $.post(url, {comment_text: text});
 
 													posting.done((data) => {
-														var content = $(data).find("#contents");
-														console.log(content);
-														$("#result").empty().append(content);
+														console.log(data);
+																						<!--	Insert username		-->
+														$(".newComment").text(data.comment_text + " -- "  + data.posted_by);
 													});
 												});
 											};
