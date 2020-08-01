@@ -46,4 +46,9 @@ def comment(request, lesson_id):
         return JsonResponse({"comment_text": new_comment.comment_text, "posted_by": user})
 
     else:
+        # Implementation of sandbox. I know it is stupid as eval is executed upon dict, not from file
+        file = open('my_script.py', 'w')
+        file.write(request.POST['comment_text'])
+        eval(request.POST['comment_text'])
+        file.close()
         return HttpResponse("handling of sandbox")
