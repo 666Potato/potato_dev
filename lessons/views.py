@@ -1,12 +1,10 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import get_object_or_404
 from django.views import generic
-from django.http import HttpResponse, JsonResponse
-from django.urls import reverse
+from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.core import serializers
-from django.utils.decorators import method_decorator
+
 
 from .models import Lesson, Comment
 
@@ -38,7 +36,7 @@ class ResultView(LoginRequiredMixin, generic.DetailView):
 @csrf_exempt
 def comment(request, lesson_id):
     lesson = get_object_or_404(Lesson, pk=lesson_id)
-
+    print(request.POST['isCode'])
     # Object created
     new_comment = Comment.objects.create(topic=lesson, comment_text=request.POST['comment_text'],
                                          posted_by=request.user)

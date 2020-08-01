@@ -166,6 +166,14 @@
 											<form action="{% url 'lessons:comment' lesson.id %}" method="post" id="formSubmit">
 												{% csrf_token %}
 												<!-- Create form here   -->
+                                                <input type="checkbox" name="isCode" id="isChecked" value="1" style="background-color: initial;
+                                                                                                           cursor: default;
+                                                                                                           appearance: checkbox;
+                                                                                                           box-sizing: border-box;
+                                                                                                           margin: 3px 3px 3px 4px;
+                                                                                                           padding: initial;
+                                                                                                           border: initial;">
+                                                <label for="isChecked" style="display: inline-block;">Sandbox</label>
 												<input type="text" name="comment_text" placeholder="Type your comment" style="padding:1em 1em 9em; margin-bottom:1em; ">
 												<input type="submit">
 											</form>
@@ -193,14 +201,12 @@
 													event.preventDefault();
 
 													var $form = $("#formSubmit"),
-													text = $form.find("input[name='comment_text']").val(),
 													url = $form.attr("action");
 													console.log($form);
-													var posting = $.post(url, {comment_text: text});
+													var posting = $.post(url, $("#formSubmit").serialize());
 
 													posting.done((data) => {
 														console.log(data);
-																						<!--	Insert username		-->
 														$(".newComment").text(data.comment_text + " -- "  + data.posted_by);
 													});
 												});
