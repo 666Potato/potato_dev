@@ -1,6 +1,6 @@
 from django.shortcuts import get_object_or_404
 from django.views import generic
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -37,11 +37,13 @@ class ResultView(LoginRequiredMixin, generic.DetailView):
 def comment(request, lesson_id):
     lesson = get_object_or_404(Lesson, pk=lesson_id)
     is_code = request.POST.get('isCode', 0)
-    print(is_code)
-    # Object created
-    new_comment = Comment.objects.create(topic=lesson, comment_text=request.POST['comment_text'],
-                                         posted_by=request.user)
-
-    # Create queryset and transform into json
     user = request.user.get_username()
-    return JsonResponse({"comment_text": new_comment.comment_text, "posted_by": user})
+    print(is_code)
+
+    if is_code == 0:
+        new_comment = Comment.objects.create(topic=lesson, comment_text=request.POST['comment_text'],
+                                             posted_by=request.user)
+        return JsonResponse({"comment_text": new_comment.comment_text, "posted_by": user})
+
+    else:
+        return HttpResponse("handling of sandbox")

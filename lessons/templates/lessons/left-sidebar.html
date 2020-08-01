@@ -198,17 +198,20 @@
                                         window.onload = () => {
 
 												$("#formSubmit").submit((event) => {
-													event.preventDefault();
+												if($('#isChecked:checked').length == 0)
+													{
+														event.preventDefault();
 
-													var $form = $("#formSubmit"),
-													url = $form.attr("action");
-													console.log($form);
-													var posting = $.post(url, $("#formSubmit").serialize());
+														var $form = $("#formSubmit"),
+														url = $form.attr("action");
+														console.log($form);
+														var posting = $.post(url, $("#formSubmit").serialize());
 
-													posting.done((data) => {
-														console.log(data);
-														$(".newComment").text(data.comment_text + " -- "  + data.posted_by);
-													});
+														posting.done((data) => {
+															console.log(data);
+															$(".newComment").text(data.comment_text + " -- "  + data.posted_by);
+														});
+													}
 												});
 											};
                                         </script>
