@@ -36,7 +36,8 @@ class ResultView(LoginRequiredMixin, generic.DetailView):
 @csrf_exempt
 def comment(request, lesson_id):
     lesson = get_object_or_404(Lesson, pk=lesson_id)
-    print(request.POST['isCode'])
+    is_code = request.POST.get('isCode', 0)
+    print(is_code)
     # Object created
     new_comment = Comment.objects.create(topic=lesson, comment_text=request.POST['comment_text'],
                                          posted_by=request.user)
