@@ -38,7 +38,6 @@ def comment(request, lesson_id):
     lesson = get_object_or_404(Lesson, pk=lesson_id)
     is_code = request.POST.get('isCode', 0)
     user = request.user.get_username()
-    print(is_code)
 
     if is_code == 0:
         new_comment = Comment.objects.create(topic=lesson, comment_text=request.POST['comment_text'],
@@ -47,8 +46,6 @@ def comment(request, lesson_id):
 
     else:
         # Implementation of sandbox. I know it is stupid as eval is executed upon dict, not from file
-        file = open('my_script.py', 'w')
-        file.write(request.POST['comment_text'])
-        eval(request.POST['comment_text'])
-        file.close()
+        with open("my_script.py", "w") as file:
+            file.write(request.POST['comment_text'])
         return HttpResponse("handling of sandbox")

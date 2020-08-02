@@ -214,4 +214,24 @@
 
 		});
 
+// How to properly insert this? this way is not working
+window.onload = () => {
+	$("#formSubmit").submit((event) => {
+		if($('#isChecked:checked').length == 0)
+		{
+			event.preventDefault();
+
+			var $form = $("#formSubmit"),
+			url = $form.attr("action");
+			console.log($form);
+			var posting = $.post(url, $("#formSubmit").serialize());
+
+			posting.done((data) => {
+				console.log(data);
+				$(".newComment").text(data.comment_text + " -- "  + data.posted_by);
+			});
+		}
+	});
+};
+
 })(jQuery);
