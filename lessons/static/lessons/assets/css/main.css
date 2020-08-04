@@ -24,6 +24,10 @@
 	margin-bottom: 1em;
 }
 
+.inlineBlock {
+	display: inline-block !important;
+}
+
 /*MAIN CSS*/
 
 html, body, div, span, applet, object,
@@ -2210,12 +2214,6 @@ input, select, textarea {
 			display: inline-block;
 			vertical-align: middle;
 			height: 100%;
-		}
-
-		#headerSecond:before {
-			content: '';
-			display: inline-block;
-			vertical-align: middle;
 		}
 
 		#header .inner {
