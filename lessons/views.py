@@ -52,5 +52,6 @@ def comment(request, lesson_id):
         with open(filename, "w") as file:
             file.write(request.POST['comment_text'])
 
-        process = subprocess.run("py " + filename, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        return HttpResponse(process.stdout)
+        process = subprocess.run("py " + filename, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+                                 universal_newlines=True)
+        return HttpResponse(content='<h1>Your output is: </h1>' + process.stdout)

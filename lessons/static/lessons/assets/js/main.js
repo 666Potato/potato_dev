@@ -214,7 +214,6 @@
 
 		});
 
-window.onload = () => {
 	$("#formSubmit").submit((event) => {
 		if($('#isChecked:checked').length == 0)
 		{
@@ -226,11 +225,10 @@ window.onload = () => {
 			var posting = $.post(url, $("#formSubmit").serialize());
 
 			posting.done((data) => {
-
 				$(".newComment").text(data.comment_text + " -- "  + data.posted_by);
 			});
 		}
 	});
-};
+
 
 })(jQuery);
