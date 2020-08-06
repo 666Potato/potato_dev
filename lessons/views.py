@@ -49,7 +49,7 @@ def comment(request, lesson_id):
         return JsonResponse({"comment_text": new_comment.comment_text, "posted_by": user})
 
     else:
-        with open(filename, "w") as file:
+        with open(filename, "w", encoding='utf-8') as file:
             file.write(request.POST['comment_text'])
 
         process = subprocess.run("py " + filename, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
