@@ -1,7 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import (
     authenticate,
-    get_user_model,
     login,
     logout
 )
@@ -11,21 +10,22 @@ from .forms import LoginForm
 
 
 def login_view(request):
-    next = request.GET.get('next')
-    form = LoginForm(request.POST or None)
+    username = request.POST.get('username')
+    password = request.POST.get('password')
+    user = authenticate(request, username=username, password=password)
 
-    if form.is_valid():
-        username = form.cleaned_data.get('username')
-        password = form.cleaned_data.get('password')
-        user = authenticate(username=username, password=password)
-        login(request, user)
+    if request.method == 'POST':
+        if user is not None:
+            login(request, user)
+            return redirect('lessons:index')
 
-        if next:
-            return redirect(next)
-        redirect('/')
-        
-        context = {
-            'form': form
-        }
+        if not user:
+            raise ValueError('Логин и пароль не совпали')
 
-        return render(request, 'accounts:login.html', context)
+    else:
+        return render(request, 'accounts/login.html', context={'form': LoginForm()})
+
+
+def logout_view(request):
+    logout(request)
+    return redirect('accounts:login')

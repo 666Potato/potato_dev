@@ -1,8 +1,9 @@
+{% load static %}
 <html>
 <head>
 	<title></title>
 
-	<link rel="stylesheet" type="text/css" href="styles.css">
+	<link rel="stylesheet" type="text/css" href="{% static 'accounts/styles.css' %}">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 	<link href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css'>
 </head>
@@ -15,14 +16,13 @@
                 <div class="row justify-content-center my-auto">
                     <div class="col-md-8 col-10 my-5">
 
-                    	<form method="post" action="{% url 'login' %}">
+                    	<form method="post", action="{% url 'accounts:login' %}">
                             {% csrf_token %}
-                    		<h3 class="mb-5 text-center heading">We are Tidi</h3>
-	                        <h6 class="msg-info">Please login to your account</h6>
-	                        <div class="form-group"> <label class="form-control-label text-muted">Username</label> {{form.username}} </div>
-	                        <div class="form-group"> <label class="form-control-label text-muted">Password</label> {{form.password}} </div>
-	                        <div class="row justify-content-center my-3 px-3"> <input class="btn-block btn-color" type="submit" value="Login"> </div>
-                            <input type="hidden" name="next" value="{{ next }}" />
+                    		<h3 class="mb-5 text-center heading">Онлайн платформа обучения</h3>
+	                        <h6 class="msg-info">Пожалуйста зайдите в ваш профиль</h6>
+	                        <div class="form-group"> <label class="form-control-label text-muted">Логин</label> {{form.username}} </div>
+	                        <div class="form-group"> <label class="form-control-label text-muted">Пароль</label> {{form.password}} </div>
+	                        <div class="row justify-content-center my-3 px-3"> <button type="submit" class="btn-block btn-color">Войти</button> </div>
 
                     	</form>
 
@@ -30,7 +30,7 @@
                     </div>
                 </div>
                 <div class="bottom text-center mb-5">
-                    <p href="#" class="sm-text mx-auto mb-3">Don't have an account?<button class="btn btn-white ml-2">Create new</button></p>
+                    <p href="#" class="sm-text mx-auto mb-3">Все еще не зарегистрировались?<button class="btn btn-white ml-2">Создать новый</button></p>
                 </div>
             </div>
             <div class="card card2">
@@ -47,37 +47,3 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 </body>
 </html>
-
-
-
-
-  {% if form.errors %}
-    <p>Your username and password didn't match. Please try again.</p>
-  {% endif %}
-  
-  {% if next %}
-    {% if user.is_authenticated %}
-      <p>Your account doesn't have access to this page. To proceed,
-      please login with an account that has access.</p>
-    {% else %}
-      <p>Please login to see this page.</p>
-    {% endif %}
-  {% endif %}
-  
-  <form method="post" action="{% url 'login' %}">
-    {% csrf_token %}
-    <table>
-      <tr>
-        <td>{{ form.username.label_tag }}</td>
-        <td>{{ form.username }}</td>
-      </tr>
-      <tr>
-        <td>{{ form.password.label_tag }}</td>
-        <td>{{ form.password }}</td>
-      </tr>
-    </table>
-    <input type="submit" value="Login" />
-    <input type="hidden" name="next" value="{{ next }}" />
-  </form>
-
-
