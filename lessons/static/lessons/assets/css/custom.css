@@ -1,0 +1,20 @@
+/*Customized CSS*/
+
+#isChecked {
+	background-color: initial;
+    cursor: default;
+    appearance: checkbox;
+    box-sizing: border-box;
+    margin: 3px 3px 3px 4px;
+    padding: initial;
+    border: initial;
+}
+
+#commentText_id {
+	padding: 1em 1em 9em;
+	margin-bottom: 1em;
+}
+
+.labelChecked {
+	display: inline-block !important;
+}
