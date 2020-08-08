@@ -32,6 +32,8 @@ ALLOWED_HOSTS = ['138.68.70.1', '127.0.0.1', 'potato.ryteam.dev']
 
 INSTALLED_APPS = [
     'lessons.apps.LessonsConfig',
+    'accounts.apps.AccountsConfig',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

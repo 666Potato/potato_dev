@@ -20,7 +20,7 @@ from . import views
 
 urlpatterns = [
     path('', views.index, name='redirect'),
-    path('accounts/', include('django.contrib.auth.urls')),
+    path('accounts/', include('accounts.urls')),
     path('lessons/', include('lessons.urls')),
     path('admin/', admin.site.urls),
 ]
