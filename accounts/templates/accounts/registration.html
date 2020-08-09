@@ -1,0 +1,52 @@
+{% load static %}
+<html>
+<head>
+    <title>Регистрация</title>
+
+    <link rel="stylesheet" type="text/css" href="{% static 'accounts/styles.css' %}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css'>
+</head>
+<body>
+
+<div class="container px-4 py-5 mx-auto">
+    <div class="card card0">
+        <div class="d-flex flex-lg-row flex-column-reverse">
+            <div class="card card1">
+                <div class="row justify-content-center my-auto">
+                    <div class="col-md-8 col-10 my-5">
+
+                        <form method="post" action="{% url 'accounts:register' %}">
+                            {% csrf_token %}
+                            <h3 class="mb-5 text-center heading">Онлайн платформа обучения</h3>
+                            <h6 class="msg-info">Регистрация</h6>
+                            <div class="form-group"> <label class="form-control-label text-muted">Email</label> {{form.email}} </div>
+                            <div class="form-group"> <label class="form-control-label text-muted">Имя</label> {{form.first_name}} </div>
+                            <div class="form-group"> <label class="form-control-label text-muted">Фамилия</label> {{form.last_name}} </div>
+                            <div class="form-group"> <label class="form-control-label text-muted">Логин</label> {{form.username}} </div>
+                            <div class="form-group"> <label class="form-control-label text-muted">Пароль</label> {{form.password1}} </div>
+                            <div class="form-group"> <label class="form-control-label text-muted">Подтвердите пароль</label> {{form.password2}} </div>
+                            <div class="row justify-content-center my-3 px-3"> <button type="submit" class="btn-block btn-color">Зарегистрироваться</button> </div>
+                        </form>
+
+
+                    </div>
+                </div>
+                <div class="bottom text-center mb-5">
+                    <p class="sm-text mx-auto mb-3"><a href="{% url 'accounts:login' %}"> <button class="btn btn-white ml-2">Вернуться в логин</button></a></p>
+                </div>
+            </div>
+            <div class="card card2">
+                <div class="my-auto mx-md-5 px-md-5 right">
+                    <h3 class="text-white">We are more than just a company</h3> <small class="text-white">{% if form.errors %}{{form.errors}}{% endif %}</small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+</body>
+</html>

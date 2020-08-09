@@ -1,7 +1,7 @@
 {% load static %}
 <html>
 <head>
-	<title></title>
+	<title>Логин</title>
 
 	<link rel="stylesheet" type="text/css" href="{% static 'accounts/styles.css' %}">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
@@ -16,10 +16,10 @@
                 <div class="row justify-content-center my-auto">
                     <div class="col-md-8 col-10 my-5">
 
-                    	<form method="post", action="{% url 'accounts:login' %}">
+                    	<form method="post" action="{% url 'accounts:login' %}">
                             {% csrf_token %}
                     		<h3 class="mb-5 text-center heading">Онлайн платформа обучения</h3>
-	                        <h6 class="msg-info">Пожалуйста зайдите в ваш профиль</h6>
+	                        <h6 class="msg-info">Пожалуйста, зайдите в ваш профиль</h6>
 	                        <div class="form-group"> <label class="form-control-label text-muted">Логин</label> {{form.username}} </div>
 	                        <div class="form-group"> <label class="form-control-label text-muted">Пароль</label> {{form.password}} </div>
 	                        <div class="row justify-content-center my-3 px-3"> <button type="submit" class="btn-block btn-color">Войти</button> </div>
@@ -30,12 +30,12 @@
                     </div>
                 </div>
                 <div class="bottom text-center mb-5">
-                    <p href="#" class="sm-text mx-auto mb-3">Все еще не зарегистрировались?<button class="btn btn-white ml-2">Создать новый</button></p>
+                    <p class="sm-text mx-auto mb-3">Все еще не зарегистрировались? <a href="{% url 'accounts:register' %}"><button class="btn btn-white ml-2">Создать новый</button></a></p>
                 </div>
             </div>
             <div class="card card2">
                 <div class="my-auto mx-md-5 px-md-5 right">
-                    <h3 class="text-white">We are more than just a company</h3> <small class="text-white">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</small>
+                    <h3 class="text-white">We are more than just a company</h3> <small class="text-white">{% if error %}{{error}}{% endif %}</small>
                 </div>
             </div>
         </div>
