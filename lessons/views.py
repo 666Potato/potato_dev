@@ -5,14 +5,28 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.mixins import LoginRequiredMixin
 
+from bs4 import BeautifulSoup
+
 import time
 import subprocess
+import requests
+
 from .models import Lesson, Comment
 
 
-class IndexView(LoginRequiredMixin, generic.ListView):
+class IndexView(generic.ListView):
     template_name = 'lessons/index.html'
     context_object_name = 'lessons_list'
+
+    r = requests.get('https://pycoders.com/issues')
+    text = r.text
+    soup = BeautifulSoup(text)
+    div_element = soup.find('div', {'class': 'mb-3'})
+    a_list = div_element.find_all('a')
+    link = None
+
+    for item in a_list[:1]:
+        link = item.get('href')
 
     def get_queryset(self):
         # Retrieve all objects
