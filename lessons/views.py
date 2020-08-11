@@ -5,28 +5,22 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-from bs4 import BeautifulSoup
-
 import time
 import subprocess
-import requests
 
 from .models import Lesson, Comment
+from helpers import test
 
 
 class IndexView(generic.ListView):
     template_name = 'lessons/index.html'
     context_object_name = 'lessons_list'
 
-    r = requests.get('https://pycoders.com/issues')
-    text = r.text
-    soup = BeautifulSoup(text)
-    div_element = soup.find('div', {'class': 'mb-3'})
-    a_list = div_element.find_all('a')
-    link = None
+    def get_context_data(self, **kwargs):
 
-    for item in a_list[:1]:
-        link = item.get('href')
+        context = super().get_context_data(**kwargs)
+        context['author_list', 'topic_list', 'topic_links_list', 'topic_desc_list'] = test.get_articles()
+        return context
 
     def get_queryset(self):
         # Retrieve all objects
