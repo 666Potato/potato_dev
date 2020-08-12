@@ -12,10 +12,9 @@ def last_three_articles():
 
     r = requests.get(last_issue)
     d = pq(r.text)
-    tag = d('body').find('h2:contains("Projects")')
     all_blocks = d('body').find('h2:contains("Articles")').nextAll()
-    article_blocks = []
 
+    article_blocks = []
     for article_block in all_blocks:
         if article_block.tag != 'h2':
             if article_block.tag == 'span':
@@ -24,40 +23,29 @@ def last_three_articles():
             break
 
     articles = []
+    i = 0
     for item in article_blocks:
 
         a_tag = item.find('a')
-        if a_tag is not None and 'font-size: 20px' in item.get('style'):
+        if a_tag is not None and 'font-size: 20px' in item.get('style') and article_blocks[i+9].text != 'sponsor':
             link = a_tag.get('href')
             title = a_tag.text
-            article = {'link': link, 'title': title, 'desc': article_blocks[1].text}
-            articles.append(article)
+            # print(title)
+            print(article_blocks[i+9].text == 'sponsor')
+
+        else:
+            if 'font-size:16px' in item.get('style') and item.find('a') is None:
+                desc = item.text
+
+            if item.find('a') is not None and 'color: #AAAAAA' in item.get('style') and article_blocks[i].text is None:
+                author = item.find('a').text
+                article = {'link': link, 'title': title, 'desc': desc, 'author': author}
+                articles.append(article)
+    i += 1
 
     print(articles)
     return articles
 
 
-print(__name__)
 if __name__ == '__main__':
     last_three_articles()
-
-    # soup = BeautifulSoup(r.text, 'html.parser')
-    # div_element = soup.find('div', {'class': 'mb-3'})
-    # a_list = div_element.find_all('a')
-    # link = 'https://pycoders.com'
-    #
-    # for item in a_list[:1]:
-    #     link += item.get('href')
-    #
-    # r = requests.get(link)
-    # text = r.text
-    # soup = BeautifulSoup(text, 'html.parser')
-    # spans = soup.find_all('h2')[3].find_next_siblings('span')
-    #
-    # author_list = [spans[2].string, spans[5].string, spans[8].string]
-    # topic_list = [spans[0].string, spans[3].string, spans[6].string]
-    # topic_links_list = [spans[0].find('a').get('href'), spans[3].find('a').get('href'), spans[6].find('a').get('href')]
-    # topic_desc_list = [spans[1].string, spans[4].string, spans[7].string]
-    #
-    # return author_list, topic_list, topic_links_list, topic_desc_list
-
