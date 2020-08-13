@@ -2,6 +2,7 @@ from pyquery import PyQuery as pq
 import requests
 
 SECONDS_IN_DAY = 60 * 60 * 24
+SPONSORS = ['sponsor', 'podcast', 'video']
 
 
 def last_three_articles():
@@ -28,7 +29,7 @@ def last_three_articles():
 
         a_tag = item.find('a')
         if a_tag is not None and 'font-size: 20px' in item.get('style') \
-                and article_blocks[i].getnext().text != 'sponsor':
+                and article_blocks[i].getnext().text not in SPONSORS:
             link = a_tag.get('href')
             title = a_tag.text
 
@@ -43,8 +44,7 @@ def last_three_articles():
                 articles.append(article)
         i += 1
 
-    print(articles)
-    return articles
+    return articles[:3]
 
 
 if __name__ == '__main__':

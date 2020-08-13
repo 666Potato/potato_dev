@@ -80,36 +80,21 @@ Index
 			<p>Ниже предоставлены ссылки на еженедельные статьи по языку</p>
 		</header>
 		<div class="row">
-			<article class="col-4 col-12-mobile special">
-				<a href="#" class="image featured"><img src="{% static 'lessons/images/pic07.jpg' %}" alt="" /></a>
-				<header>
-					<h3><a href="#">Gravida aliquam penatibus</a></h3>
-				</header>
-				<p>
-					Amet nullam fringilla nibh nulla convallis tique ante proin sociis accumsan lobortis. Auctor etiam
-					porttitor phasellus tempus cubilia ultrices tempor sagittis. Nisl fermentum consequat integer interdum.
-				</p>
-			</article>
-			<article class="col-4 col-12-mobile special">
-				<a href="#" class="image featured"><img src="{% static 'lessons/images/pic08.jpg' %}" alt="" /></a>
-				<header>
-					<h3><a href="#">Sed quis rhoncus placerat</a></h3>
-				</header>
-				<p>
-					Amet nullam fringilla nibh nulla convallis tique ante proin sociis accumsan lobortis. Auctor etiam
-					porttitor phasellus tempus cubilia ultrices tempor sagittis. Nisl fermentum consequat integer interdum.
-				</p>
-			</article>
-			<article class="col-4 col-12-mobile special">
-				<a href="#" class="image featured"><img src="{% static 'lessons/images/pic09.jpg' %}" alt="" /></a>
-				<header>
-					<h3><a href="#">Magna laoreet et aliquam</a></h3>
-				</header>
-				<p>
-					Amet nullam fringilla nibh nulla convallis tique ante proin sociis accumsan lobortis. Auctor etiam
-					porttitor phasellus tempus cubilia ultrices tempor sagittis. Nisl fermentum consequat integer interdum.
-				</p>
-			</article>
+
+			{% for article in articles %}
+				<article class="col-4 col-12-mobile special">
+					<header>
+						<h3><a href={{article.link}} target="_blank">{{article.title}}</a></h3>
+					</header>
+					<p>
+						{{article.desc}}
+					</p>
+					<p>
+						<strong>{{article.author}}</strong>
+					</p>
+				</article>
+			{% endfor %}
+
 		</div>
 	</section>
 </div>

@@ -9,18 +9,18 @@ import time
 import subprocess
 
 from .models import Lesson, Comment
+from helpers.pycoders.get_articles import last_three_articles
 
 
 class IndexView(generic.ListView):
     template_name = 'lessons/index.html'
     context_object_name = 'lessons_list'
 
-    # def get_context_data(self, **kwargs):
-    #
-    #     context = super().get_context_data(**kwargs)
-    #     context['author_list', 'topic_list', 'topic_links_list', 'topic_desc_list'] = test.get_articles()
-    #     print(context['author_list'])
-    #     return context
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        context['articles'] = last_three_articles()
+        return context
 
     def get_queryset(self):
         # Retrieve all objects
