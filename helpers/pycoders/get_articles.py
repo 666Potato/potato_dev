@@ -27,7 +27,8 @@ def last_three_articles():
     for item in article_blocks:
 
         a_tag = item.find('a')
-        if a_tag is not None and 'font-size: 20px' in item.get('style') and article_blocks[i+3].text != 'sponsor':
+        if a_tag is not None and 'font-size: 20px' in item.get('style') \
+                and article_blocks[i].getnext().text != 'sponsor':
             link = a_tag.get('href')
             title = a_tag.text
 
@@ -35,7 +36,8 @@ def last_three_articles():
             if 'font-size:16px' in item.get('style') and item.find('a') is None:
                 desc = item.text
 
-            if item.find('a') is not None and 'color: #AAAAAA' in item.get('style') and article_blocks[i+1].text is None:
+            if item.find('a') is not None and 'color: #AAAAAA' in item.get('style') \
+                    and article_blocks[i].getnext().text is None:
                 author = item.find('a').text
                 article = {'link': link, 'title': title, 'desc': desc, 'author': author}
                 articles.append(article)
