@@ -83,13 +83,13 @@ Index
 
 			{% for article in articles %}
 				<article class="col-4 col-12-mobile special">
-					<header>
-						<h3><a href={{article.link}} target="_blank">{{article.title}}</a></h3>
+					<header style="height: 20px;margin-bottom: 40px">
+						<h4><a href={{article.link}} target="_blank">{{article.title}}</a></h4>
 					</header>
-					<p>
+					<p style="height: 150px; margin-bottom: 20px">
 						{{article.desc}}
 					</p>
-					<p>
+					<p style="margin-top: 50px">
 						<strong>{{article.author}}</strong>
 					</p>
 				</article>

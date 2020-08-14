@@ -14,17 +14,14 @@ from helpers.pycoders.get_articles import last_three_articles
 
 class IndexView(generic.ListView):
     template_name = 'lessons/index.html'
-    context_object_name = 'lessons_list'
+    model = Lesson
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
+        context['lessons_list'] = Lesson.objects.all()
         context['articles'] = last_three_articles()
         return context
-
-    def get_queryset(self):
-        # Retrieve all objects
-        return Lesson.objects.all()
 
 
 # @method_decorator(csrf_exempt, name='dispatch')

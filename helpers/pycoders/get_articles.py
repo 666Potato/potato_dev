@@ -1,8 +1,10 @@
 from pyquery import PyQuery as pq
+import sched, time
 import requests
 
 SECONDS_IN_DAY = 60 * 60 * 24
 SPONSORS = ['sponsor', 'podcast', 'video']
+s = sched.scheduler(time.time, time.sleep)
 
 
 def last_three_articles():
@@ -44,6 +46,8 @@ def last_three_articles():
                 articles.append(article)
         i += 1
 
+    s.enter(SECONDS_IN_DAY*7 + SECONDS_IN_DAY*2, 1, last_three_articles)
+    s.run()
     return articles[:3]
 
 
