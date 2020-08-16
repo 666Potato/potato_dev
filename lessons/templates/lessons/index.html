@@ -80,20 +80,24 @@ Index
 			<p>Ниже предоставлены ссылки на еженедельные статьи по языку</p>
 		</header>
 		<div class="row">
-
+		{% if articles %}
 			{% for article in articles %}
 				<article class="col-4 col-12-mobile special">
-					<header style="height: 20px;margin-bottom: 40px">
+					<header class="articleTitle">
 						<h4><a href={{article.link}} target="_blank">{{article.title}}</a></h4>
 					</header>
-					<p style="height: 150px; margin-bottom: 20px">
+					<p class="articleText">
 						{{article.desc}}
 					</p>
-					<p style="margin-top: 50px">
+					<p class="articleAuthor">
 						<strong>{{article.author}}</strong>
 					</p>
 				</article>
 			{% endfor %}
+
+		{% else %}
+			Empty
+		{% endif%}
 
 		</div>
 	</section>

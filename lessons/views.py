@@ -9,7 +9,7 @@ import time
 import subprocess
 
 from .models import Lesson, Comment
-from helpers.pycoders.get_articles import last_three_articles
+from helpers.pycoders.get_articles import last_articles
 
 
 class IndexView(generic.ListView):
@@ -20,7 +20,7 @@ class IndexView(generic.ListView):
         context = super().get_context_data(**kwargs)
 
         context['lessons_list'] = Lesson.objects.all()
-        context['articles'] = last_three_articles()
+        context['articles'] = last_articles()
         return context
 
 

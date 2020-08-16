@@ -18,3 +18,15 @@
 .labelChecked {
 	display: inline-block !important;
 }
+
+.articleTitle {
+    height: 20px;margin-bottom: 40px
+}
+
+.articleText {
+    height: 150px; margin-bottom: 20px
+}
+
+.articleAuthor {
+    margin-top: 50px
+}
