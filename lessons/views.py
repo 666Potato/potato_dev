@@ -1,12 +1,13 @@
+import asyncio
+import time
+import subprocess
+
 from django.shortcuts import get_object_or_404
 from django.views import generic
 from django.http import JsonResponse, HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.mixins import LoginRequiredMixin
-
-import time
-import subprocess
 
 from .models import Lesson, Comment
 from helpers.pycoders.get_articles import last_articles
@@ -15,6 +16,7 @@ from helpers.pycoders.get_articles import last_articles
 class IndexView(generic.ListView):
     template_name = 'lessons/index.html'
     model = Lesson
+    articles = []
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

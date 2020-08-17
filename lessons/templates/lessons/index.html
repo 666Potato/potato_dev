@@ -37,7 +37,6 @@ Index
 <section class="carousel">
 	<div class="reel">
 
-		{% if lessons_list %}
 		{% for lesson in lessons_list %}
 		<article>
 			<a href="{% url 'lessons:detail' lesson.id %}" class="image featured"><img src="{{lesson.image_link}}" alt="" /></a>
@@ -46,11 +45,9 @@ Index
 			</header>
 			<p>{{lesson.author}}</p>
 		</article>
-		{% endfor %}
-
-		{% else %}
+		{% empty %}
 		<p>Empty</p>
-		{% endif %}
+		{% endfor %}
 
 	</div>
 </section>
@@ -80,7 +77,7 @@ Index
 			<p>Ниже предоставлены ссылки на еженедельные статьи по языку</p>
 		</header>
 		<div class="row">
-		{% if articles %}
+
 			{% for article in articles %}
 				<article class="col-4 col-12-mobile special">
 					<header class="articleTitle">
@@ -93,11 +90,9 @@ Index
 						<strong>{{article.author}}</strong>
 					</p>
 				</article>
+			{% empty %}
+				Empty
 			{% endfor %}
-
-		{% else %}
-			Empty
-		{% endif%}
 
 		</div>
 	</section>

@@ -33,14 +33,14 @@ def last_articles(count=3):
     for i, item in enumerate(article_blocks):
         desc_i = i + 1
         author_i = i + 2
-        sponsor_or_next_title_i = i + 3
+        sponsor_i = i + 3
 
         a_tag = item.find('a')
         is_item_title = 'font-size: 20px' in item.get('style')
         # Check for sponsor
         if a_tag is not None and is_item_title:
-            if sponsor_or_next_title_i < len(article_blocks):
-                if article_blocks[sponsor_or_next_title_i].text in SPONSOR_LABELS:
+            if sponsor_i < len(article_blocks):
+                if article_blocks[sponsor_i].text in SPONSOR_LABELS:
                     continue
 
             link = a_tag.get('href')
@@ -48,16 +48,16 @@ def last_articles(count=3):
             desc = article_blocks[desc_i].text
             author = article_blocks[author_i].find('a').text
 
-            article = {'link': link,
-                       'title': title,
-                       'desc': desc,
-                       'author': author, }
+            article = {
+                'link': link,
+                'title': title,
+                'desc': desc,
+                'author': author,
+            }
             articles.append(article)
 
     # Pycoders updates every Monday. Day of writing func is Saturday, therefore + two days.
     # Once launched in deployment, needs adjustment
-    repeater.enter(SECONDS_IN_DAY*7 + SECONDS_IN_DAY*2, 1, last_articles)
-    repeater.run()
     return articles[:count]
 
 
