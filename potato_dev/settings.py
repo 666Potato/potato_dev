@@ -121,3 +121,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+CELERY_BROKER_URL = 'amqp://maks:password@localhost:5672/potato'
+CELERY_CACHE_BACKEND = 'django-cache'
+CELERY_TIMEZONE = 'Asia/Tashkent'
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'

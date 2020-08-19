@@ -27,3 +27,11 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.comment_text
+
+
+class Articles(models.Model):
+    title = models.CharField(max_length=200)
+    title_link = models.CharField(max_length=200)
+    desc = models.CharField(max_length=200)
+    author = models.CharField(max_length=200)
+    date_added = models.DateTimeField()

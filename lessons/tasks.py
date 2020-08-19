@@ -1,12 +1,18 @@
-import time
+from __future__ import absolute_import, unicode_literals
 
+from datetime import date
+
+from celery import shared_task
 from pyquery import PyQuery as pq
 import requests
+
+from .models import Articles
 
 SECONDS_IN_DAY = 60 * 60 * 24
 SPONSOR_LABELS = ['sponsor', 'podcast', 'video']
 
 
+@shared_task
 def last_articles(count=3):
     """ Method returns last articles from pycoders.com. Standard is three """
     req = requests.get('https://pycoders.com/issues')
@@ -54,10 +60,10 @@ def last_articles(count=3):
             }
             articles.append(article)
 
+    print('repeated\n----', articles[:count])
     # Pycoders updates every Monday. Day of writing func is Saturday, therefore + two days.
     # Once launched in deployment, needs adjustment
-    return articles[:count]
-
-
-if __name__ == '__main__':
-    last_articles()
+    for article in articles[:3]:
+        Articles.objects.create(title=article[title], title_link=article[link],
+                                desc=article[desc], author=article[author],
+                                date_added=date.today())

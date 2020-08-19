@@ -1,4 +1,3 @@
-import asyncio
 import time
 import subprocess
 
@@ -9,20 +8,19 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-from .models import Lesson, Comment
+from lessons.models import Lesson, Comment, Articles
 from helpers.pycoders.get_articles import last_articles
 
 
 class IndexView(generic.ListView):
     template_name = 'lessons/index.html'
     model = Lesson
-    articles = []
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
         context['lessons_list'] = Lesson.objects.all()
-        context['articles'] = last_articles()
+        context['articles'] = Articles.objects.order_by('date_added').reverse()[:3]
         return context
 
 
