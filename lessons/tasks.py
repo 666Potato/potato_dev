@@ -1,12 +1,12 @@
-from __future__ import absolute_import, unicode_literals
-
-from datetime import date
+from __future__ import unicode_literals
 
 from celery import shared_task
+from potato_dev.celery import app
+from celery.schedules import crontab
 from pyquery import PyQuery as pq
 import requests
 
-from .models import Articles
+from lessons.models import Articles
 
 SECONDS_IN_DAY = 60 * 60 * 24
 SPONSOR_LABELS = ['sponsor', 'podcast', 'video']
@@ -18,7 +18,7 @@ def last_articles(count=3):
     req = requests.get('https://pycoders.com/issues')
     html_snapshot = pq(req.text)
     a_source = html_snapshot('.mb-3').find('a').attr('href')
-    last_issue = "{0}{1}".format('https://pycoders.com', a_source)
+    last_issue = '{0}{1}'.format('https://pycoders.com', a_source)
 
     req = requests.get(last_issue)
     html_snapshot = pq(req.text)
@@ -33,6 +33,7 @@ def last_articles(count=3):
         else:
             break
 
+    # Generate article dict
     articles = []
     for i, item in enumerate(article_blocks):
         desc_i = i + 1
@@ -60,10 +61,22 @@ def last_articles(count=3):
             }
             articles.append(article)
 
+    # Write to db
     print('repeated\n----', articles[:count])
     # Pycoders updates every Monday. Day of writing func is Saturday, therefore + two days.
     # Once launched in deployment, needs adjustment
+    new_or_created = []
     for article in articles[:3]:
-        Articles.objects.create(title=article[title], title_link=article[link],
-                                desc=article[desc], author=article[author],
-                                date_added=date.today())
+        new_or_created.append(Articles.objects.get_or_create(title=article['title'], link=article['link'],
+                                                             desc=article['desc'], author=article['author']))
+    return new_or_created
+
+
+@app.on_after_configure.connect
+def setup_periodic_tasks(sender, **kwargs):
+
+    # Executes every Monday morning at 7:30 a.m.
+    sender.add_periodic_task(
+        crontab(hour=7, minute=30, day_of_week=1),
+        last_articles.s(),
+    )

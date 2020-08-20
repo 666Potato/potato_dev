@@ -20,7 +20,7 @@ class IndexView(generic.ListView):
         context = super().get_context_data(**kwargs)
 
         context['lessons_list'] = Lesson.objects.all()
-        context['articles'] = Articles.objects.order_by('date_added').reverse()[:3]
+        context['articles'] = last_articles()
         return context
 
 

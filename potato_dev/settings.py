@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'lessons.apps.LessonsConfig',
     'accounts.apps.AccountsConfig',
 
+    'django_celery_results',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

@@ -31,7 +31,7 @@ class Comment(models.Model):
 
 class Articles(models.Model):
     title = models.CharField(max_length=200)
-    title_link = models.CharField(max_length=200)
-    desc = models.CharField(max_length=200)
+    link = models.CharField(max_length=1000)
+    desc = models.TextField()
     author = models.CharField(max_length=200)
-    date_added = models.DateTimeField()
+    date_added = models.DateTimeField(auto_now_add=True)
