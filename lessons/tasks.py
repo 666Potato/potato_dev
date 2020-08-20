@@ -62,21 +62,11 @@ def last_articles(count=3):
             articles.append(article)
 
     # Write to db
-    print('repeated\n----', articles[:count])
     # Pycoders updates every Monday. Day of writing func is Saturday, therefore + two days.
     # Once launched in deployment, needs adjustment
     new_or_created = []
     for article in articles[:3]:
         new_or_created.append(Articles.objects.get_or_create(title=article['title'], link=article['link'],
                                                              desc=article['desc'], author=article['author']))
+    print('repeated\n----', new_or_created)
     return new_or_created
-
-
-@app.on_after_configure.connect
-def setup_periodic_tasks(sender, **kwargs):
-
-    # Executes every Monday morning at 7:30 a.m.
-    sender.add_periodic_task(
-        crontab(hour=7, minute=30, day_of_week=1),
-        last_articles.s(),
-    )

@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+from celery.schedules import crontab
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -128,3 +129,10 @@ CELERY_CACHE_BACKEND = 'django-cache'
 CELERY_TIMEZONE = 'Asia/Tashkent'
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
+CELERY_BEAT_SCHEDULE = {
+    # Executes every Friday at 4pm
+    'send-notification-on-friday-afternoon': {
+         'task': 'lessons.tasks.last_articles',
+         'schedule': crontab(hour=11, minute=58, day_of_week=4),
+        },
+}
