@@ -1,9 +1,12 @@
+{% extends 'lessons/base_plugins.html' %}
+
 {% load static %}
 <!--
 	Helios by HTML5 UP
 	html5up.net | @ajlkn
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 -->
+{% block base %}
 <html>
 	<head>
 		<title>{% block title %} {% endblock %} </title>
@@ -12,6 +15,7 @@
 		<link rel="stylesheet" href="{% static 'lessons/assets/css/main.css' %}" />
 		<noscript><link rel="stylesheet" href="{% static 'lessons/assets/css/noscript.css' %}" /></noscript>
 		<link rel="stylesheet" href="{% static 'lessons/assets/css/custom.css' %}">
+		{% block yandex_metrica %} {% endblock %}
 	</head>
 	{% block body %} {% endblock %}
 		<div id="page-wrapper">
@@ -209,3 +213,4 @@
 
 	</body>
 </html>
+{% endblock %}
