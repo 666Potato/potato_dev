@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 from celery.schedules import crontab
+import sentry_sdk
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -136,3 +137,8 @@ CELERY_BEAT_SCHEDULE = {
          'schedule': crontab(hour=13, day_of_week=1),
         },
 }
+
+sentry_sdk.init(
+    "https://d6a69326eaa0473e820296374b2ee327@o437434.ingest.sentry.io/5400035",
+    traces_sample_rate = 1.0
+)
