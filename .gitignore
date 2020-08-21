@@ -142,3 +142,8 @@ cython_debug/
 
 #.scripts/
 .scripts/
+
+#celery
+celerybeat-schedule.bak
+celerybeat-schedule.dat
+celerybeat-schedule.dir
