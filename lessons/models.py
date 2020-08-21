@@ -35,3 +35,6 @@ class Articles(models.Model):
     desc = models.TextField()
     author = models.CharField(max_length=200)
     date_added = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ('date_added',)

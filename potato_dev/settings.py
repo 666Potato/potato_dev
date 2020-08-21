@@ -131,8 +131,8 @@ CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_BEAT_SCHEDULE = {
     # Executes every Friday at 4pm
-    'send-notification-on-friday-afternoon': {
-         'task': 'lessons.tasks.last_articles',
-         'schedule': crontab(hour=11, minute=58, day_of_week=4),
+    'load-articles': {
+         'task': 'lessons.tasks.articles_to_db',
+         'schedule': crontab(hour=13, day_of_week=1),
         },
 }

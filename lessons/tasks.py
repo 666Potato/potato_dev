@@ -1,20 +1,16 @@
 from __future__ import unicode_literals
 
 from celery import shared_task
-from potato_dev.celery import app
-from celery.schedules import crontab
 from pyquery import PyQuery as pq
 import requests
 
 from lessons.models import Articles
 
-SECONDS_IN_DAY = 60 * 60 * 24
 SPONSOR_LABELS = ['sponsor', 'podcast', 'video']
 
 
-@shared_task
-def last_articles(count=3):
-    """ Method returns last articles from pycoders.com. Standard is three """
+def pycoders_articles():
+    """ Method returns last articles from pycoders.com. """
     req = requests.get('https://pycoders.com/issues')
     html_snapshot = pq(req.text)
     a_source = html_snapshot('.mb-3').find('a').attr('href')
@@ -61,12 +57,12 @@ def last_articles(count=3):
             }
             articles.append(article)
 
-    # Write to db
-    # Pycoders updates every Monday. Day of writing func is Saturday, therefore + two days.
-    # Once launched in deployment, needs adjustment
-    new_or_created = []
-    for article in articles[:3]:
-        new_or_created.append(Articles.objects.get_or_create(title=article['title'], link=article['link'],
-                                                             desc=article['desc'], author=article['author']))
-    print('repeated\n----', new_or_created)
-    return new_or_created
+    return articles
+
+
+@shared_task
+def articles_to_db():
+    articles = pycoders_articles()
+    for article in articles:
+        Articles.objects.get_or_create(title=article['title'], link=article['link'],
+                                       desc=article['desc'], author=article['author'])

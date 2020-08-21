@@ -1,5 +1,3 @@
-import time
-
 from pyquery import PyQuery as pq
 import requests
 

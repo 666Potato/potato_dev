@@ -9,7 +9,6 @@ from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from lessons.models import Lesson, Comment, Articles
-from helpers.pycoders.get_articles import last_articles
 
 
 class IndexView(generic.ListView):
@@ -20,7 +19,7 @@ class IndexView(generic.ListView):
         context = super().get_context_data(**kwargs)
 
         context['lessons_list'] = Lesson.objects.all()
-        context['articles'] = last_articles()
+        context['articles'] = Articles.objects.all()[:3]
         return context
 
 
