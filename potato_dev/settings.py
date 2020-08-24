@@ -27,7 +27,7 @@ SECRET_KEY = '#v0gu$#c#($s^$rs7_723x1xt2q*kesq-rp=kw4rwxy^(o=&%('
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['138.68.70.1', '127.0.0.1', 'potato.ryteam.dev']
+ALLOWED_HOSTS = ['138.68.70.1', '127.0.0.1', 'potato.ryteam.dev', 'syssup.co.jp']
 
 
 # Application definition
@@ -131,10 +131,10 @@ CELERY_TIMEZONE = 'Asia/Tashkent'
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_BEAT_SCHEDULE = {
-    # Executes every Friday at 4pm
+    # Executes every Monday at 1pm
     'load-articles': {
          'task': 'lessons.tasks.articles_to_db',
-         'schedule': crontab(hour=13, day_of_week=1),
+         'schedule': crontab(hour=7, minute=0, day_of_week=1),
         },
 }
 
