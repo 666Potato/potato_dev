@@ -1,7 +1,4 @@
-import datetime
-
 from django.db import models
-from django.utils import timezone
 from django.contrib.auth.models import User
 
 
@@ -14,11 +11,6 @@ class Lesson(models.Model):
 
     def __str__(self):
         return self.topic
-
-    def published_recently(self):
-        now = timezone.now()
-        return now - datetime.timedelta(days=1) <= self.date_pub <= now
-
 
 class Comment(models.Model):
     topic = models.ForeignKey(Lesson, on_delete=models.CASCADE)

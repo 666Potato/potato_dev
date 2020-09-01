@@ -1,12 +1,10 @@
-from __future__ import unicode_literals
-
 from celery import shared_task
 from pyquery import PyQuery as pq
 import requests
 
 from lessons.models import Articles
 
-SPONSOR_LABELS = ['sponsor', 'podcast', 'video']
+SPONSOR_LABELS = ('sponsor', 'podcast', 'video')
 
 
 def pycoders_articles():

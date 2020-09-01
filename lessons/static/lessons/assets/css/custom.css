@@ -30,3 +30,9 @@
 .articleAuthor {
     margin-top: 50px
 }
+
+.toRight {
+	font-weight: 500;
+	float: right;
+	margin-right: 20px !important;
+}
