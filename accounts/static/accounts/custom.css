@@ -1,0 +1,8 @@
+.my-small {
+    margin: 0 !important;
+}
+
+.black-link, .black-link:hover, .black-link:active, .black-link:visited, .black-link:focus {
+    color: #000;
+    text-decoration:none;
+}

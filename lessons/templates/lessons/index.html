@@ -14,7 +14,7 @@ Home
 
 {% block innerHeader %}
 <hr />
-<p>Онлайн школа программирования</p>
+<p>Краткий курс для введения</p>
 <footer>
 	<a href="#banner" class="button circled scrolly">Начать</a>
 </footer>
@@ -25,7 +25,7 @@ Home
 <!-- Banner -->
 <section id="banner">
 	<header>
-		<h2>Добро пожаловать на онлайн платформу <strong>Potato</strong>.</h2>
+		<h2>Для чего создан?</h2>
 		<p>
 			Сайт предоставляет возможность студентам получить базовые знания
 			программного языка Python и его фреймворка Django
@@ -53,12 +53,11 @@ Home
 </section>
 
 <!-- Main -->
-<div class="wrapper style2">
+<div class="wrapper style2 pt-small">
 
 	<article id="main" class="container special">
-		<a href="#" class="image featured"><img src="{% static 'lessons/images/homepage01.jpg' %}" alt="" /></a>
 		<header>
-			<h2><a href="#">Введение</a></h2>
+			<h2>Введение</h2>
 			<p>
 				Python — высокоуровневый язык программирования общего назначения, ориентированный на повышение производительности разработчика и читаемости кода. Синтаксис ядра Python минималистичен. В то же время стандартная библиотека включает большой объём полезных функций.
 			</p>
@@ -73,23 +72,21 @@ Home
 
 	<section id="features" class="container special">
 		<header>
-			<h2>Литература</h2>
+			<h2>Статьи</h2>
 			<p>Ниже предоставлены ссылки на еженедельные статьи по языку</p>
 		</header>
 		<div class="row">
 
 			{% for article in articles %}
-				<article class="col-4 col-12-mobile special">
-					<header class="articleTitle">
-						<h4><a href={{article.link}} target="_blank">{{article.title}}</a></h4>
-					</header>
-					<p class="articleText">
-						{{article.desc}}
-					</p>
-					<p class="articleAuthor">
-						<strong>{{article.author}}</strong>
-					</p>
-				</article>
+			<article class="col-4 col-12-mobile special">
+				<a href="#" class="image featured"><img src="{% static 'lessons/images/pic01.jpg' %}" alt="" /></a>
+				<header>
+					<h3><a href={{article.link}} target="_blank">{{article.title}}</a></h3>
+				</header>
+				<p>
+					{{article.desc}}
+				</p>
+			</article>
 			{% empty %}
 				Empty
 			{% endfor %}

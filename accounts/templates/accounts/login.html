@@ -6,6 +6,7 @@
 	<link rel="stylesheet" type="text/css" href="{% static 'accounts/styles.css' %}">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 	<link href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css'>
+    <link rel="stylesheet" type="text/css" href="{% static 'accounts/custom.css' %}">
 </head>
 <body>
 
@@ -18,7 +19,7 @@
 
                     	<form method="post" action="{% url 'accounts:login' %}">
                             {% csrf_token %}
-                    		<h3 class="mb-5 text-center heading">Онлайн платформа обучения</h3>
+                    		<h3 class="mb-5 text-center heading">Краткий курс по Python и Django</h3>
 	                        <h6 class="msg-info">Пожалуйста, зайдите в ваш профиль</h6>
 	                        <div class="form-group"> <label class="form-control-label text-muted">Логин</label> {{form.username}} </div>
 	                        <div class="form-group"> <label class="form-control-label text-muted">Пароль</label> {{form.password}} </div>
@@ -29,13 +30,16 @@
 
                     </div>
                 </div>
-                <div class="bottom text-center mb-5">
+                <div class="bottom text-center mb-4">
                     <p class="sm-text mx-auto mb-3">Все еще не зарегистрировались? <a href="{% url 'accounts:register' %}"><button class="btn btn-white ml-2">Создать новый</button></a></p>
+                </div>
+                 <div class="bottom text-center mb-5 my-small">
+                    <a class="black-link" href="{% url 'lessons:index' %}">Назад</a>
                 </div>
             </div>
             <div class="card card2">
                 <div class="my-auto mx-md-5 px-md-5 right">
-                    <h3 class="text-white">We are more than just a company</h3> <small class="text-white">{% if error %}{{error}}{% endif %}</small>
+                    <h3 class="text-white">Пожалуйста пройдите процесс авторизации</h3> <small class="text-white">{% if error %}{{error}}{% endif %}</small>
                 </div>
             </div>
         </div>
