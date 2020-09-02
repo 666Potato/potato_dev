@@ -8,7 +8,7 @@ Details
 
 {% block content %}
 <!-- Main -->
-<div class="wrapper style1">
+<div class="wrapper style1 mb-0">
 
 	<div class="container">
 		<div class="row gtr-200">
@@ -16,16 +16,14 @@ Details
 				<hr class="first" />
 				<section>
 					<header>
-						<h3><a href="#">Accumsan sed penatibus</a></h3>
+						<h3><a href="#">Синопсис</a></h3>
 					</header>
 					<p>
 						Dolor sed fringilla nibh nulla convallis tique ante proin sociis accumsan lobortis. Auctor etiam
 						porttitor phasellus tempus cubilia ultrices tempor sagittis  tellus ante diam nec penatibus dolor cras
 						magna tempus feugiat veroeros.
 					</p>
-					<footer>
-						<a href="#" class="button">Learn More</a>
-					</footer>
+
 				</section>
 				<hr />
 				<section>
@@ -82,9 +80,7 @@ Details
 							</p>
 						</div>
 					</div>
-					<footer>
-						<a href="#" class="button">Magna Adipiscing</a>
-					</footer>
+
 				</section>
 			</div>
 			<div class="col-8 col-12-mobile imp-mobile" id="content">
@@ -116,8 +112,6 @@ Details
 						<form action="{% url 'lessons:comment' lesson.id %}" method="post" id="formSubmit">
 							{% csrf_token %}
 							<!-- Create form here   -->
-							<input type="checkbox" name="isCode" id="isChecked" value="1">
-							<label for="isChecked" class="labelChecked">Sandbox</label>
 							<input type="text" name="comment_text" id="commentText_id"  placeholder="Type your comment">
 							<input type="submit">
 						</form>
@@ -140,39 +134,6 @@ Details
 					</section>
 				</article>
 			</div>
-		</div>
-		<hr />
-		<div class="row">
-			<article class="col-4 col-12-mobile special">
-				<a href="#" class="image featured"><img src="{% static 'lessons/images/pic07.jpg' %}" alt="" /></a>
-				<header>
-					<h3><a href="#">Gravida aliquam penatibus</a></h3>
-				</header>
-				<p>
-					Amet nullam fringilla nibh nulla convallis tique ante proin sociis accumsan lobortis. Auctor etiam
-					porttitor phasellus tempus cubilia ultrices tempor sagittis. Nisl fermentum consequat integer interdum.
-				</p>
-			</article>
-			<article class="col-4 col-12-mobile special">
-				<a href="#" class="image featured"><img src="{% static 'lessons/images/pic08.jpg' %}" alt="" /></a>
-				<header>
-					<h3><a href="#">Sed quis rhoncus placerat</a></h3>
-				</header>
-				<p>
-					Amet nullam fringilla nibh nulla convallis tique ante proin sociis accumsan lobortis. Auctor etiam
-					porttitor phasellus tempus cubilia ultrices tempor sagittis. Nisl fermentum consequat integer interdum.
-				</p>
-			</article>
-			<article class="col-4 col-12-mobile special">
-				<a href="#" class="image featured"><img src="{% static 'lessons/images/pic09.jpg' %}" alt="" /></a>
-				<header>
-					<h3><a href="#">Magna laoreet et aliquam</a></h3>
-				</header>
-				<p>
-					Amet nullam fringilla nibh nulla convallis tique ante proin sociis accumsan lobortis. Auctor etiam
-					porttitor phasellus tempus cubilia ultrices tempor sagittis. Nisl fermentum consequat integer interdum.
-				</p>
-			</article>
 		</div>
 	</div>
 

@@ -125,6 +125,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+LOGIN_URL = 'accounts:login'
+
 CELERY_BROKER_URL = 'amqp://maks:password@localhost:5672/potato'
 CELERY_CACHE_BACKEND = 'django-cache'
 CELERY_TIMEZONE = 'Asia/Tashkent'
