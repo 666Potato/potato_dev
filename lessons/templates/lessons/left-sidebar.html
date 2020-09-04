@@ -35,7 +35,7 @@ Details
 
 						{% for material in lesson.additionalmateriallesson_set.all %}
 						<div class="col-4">
-							<a href="#" class="image fit"><img src='{{material.image}}' alt="" /></a>
+							<a href="#" class="image fit"><img src='{{material.image.url}}' alt="" /></a>
 						</div>
 						<div class="col-8">
 							<h4>{{material.title}}</h4>
@@ -88,7 +88,7 @@ Details
 							<h3>Comments</h3>
 						</header>
 						<p>
-						<ul>
+						<ul class="list-style-none">
 							{% for comment in lesson.comment_set.all %}
 							<li>{{comment.comment_text}} -- {{comment.posted_by}}</li>
 							{% endfor %}
@@ -133,7 +133,7 @@ Details
 						<h3>Comments</h3>
 					</header>
 					<p>
-					<ul>
+					<ul class="list-style-none">
 						{% for comment in lesson.comment_set.all %}
 						<li>{{comment.comment_text}} -- {{comment.posted_by}}</li>
 						{% endfor %}

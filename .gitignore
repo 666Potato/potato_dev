@@ -140,8 +140,8 @@ cython_debug/
 #.idea
 .idea
 
-#.scripts/
-scripts/
+# user uploaded files
+uploads/
 
 #celery
 celerybeat-schedule.bak

@@ -21,7 +21,7 @@ class AdditionalMaterialLesson(models.Model):
     title = models.CharField(max_length=200)
     desc = models.TextField()
     link = models.TextField(null=True, blank=True)
-    image = models.ImageField(verbose_name='Upload image', upload_to='lessons/static/lessons/images')
+    image = models.ImageField(verbose_name='Upload image', upload_to='lessons/images')
 
 
 class Comment(models.Model):
