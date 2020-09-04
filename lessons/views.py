@@ -1,9 +1,6 @@
-import time
-import subprocess
-
 from django.shortcuts import get_object_or_404
 from django.views import generic
-from django.http import JsonResponse, HttpResponse
+from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -24,7 +21,7 @@ class IndexView(generic.ListView):
 
 
 # @method_decorator(csrf_exempt, name='dispatch')
-class DetailView(LoginRequiredMixin, generic.DetailView):
+class DetailView(generic.DetailView):
     model = Lesson
     template_name = 'lessons/left-sidebar.html'
 

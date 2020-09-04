@@ -8,18 +8,20 @@ class Lesson(models.Model):
     video_link = models.CharField(max_length=200)
     image_link = models.CharField(max_length=200)
     date_pub = models.DateTimeField('Date Published')
-    syllabus = models.CharField(max_length=200)
-    is_open = models.BooleanField()
+    syllabus = models.CharField(max_length=200, default='Lesson syllabus')
+    description = models.TextField(default='Lesson description goes here')
+    is_open = models.BooleanField(default=True)
 
     def __str__(self):
         return self.topic
 
 
-class AdditionalMaterialsLessons(models.Model):
+class AdditionalMaterialLesson(models.Model):
     lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE)
     title = models.CharField(max_length=200)
     desc = models.TextField()
-    image = models.CharField(max_length=400)
+    link = models.TextField(null=True, blank=True)
+    image = models.ImageField(verbose_name='Upload image', upload_to='lessons/static/lessons/images')
 
 
 class Comment(models.Model):

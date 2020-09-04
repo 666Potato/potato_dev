@@ -19,66 +19,31 @@ Details
 						<h3><a href="#">Синопсис</a></h3>
 					</header>
 					<p>
-						Dolor sed fringilla nibh nulla convallis tique ante proin sociis accumsan lobortis. Auctor etiam
-						porttitor phasellus tempus cubilia ultrices tempor sagittis  tellus ante diam nec penatibus dolor cras
-						magna tempus feugiat veroeros.
+						{{lesson.syllabus}}
 					</p>
 
 				</section>
 				<hr />
 				<section>
 					<header>
-						<h3><a href="#">Sed lorem etiam consequat</a></h3>
+						<h3><a href="#">Дополнительные материалы</a></h3>
 					</header>
 					<p>
-						Tempus cubilia ultrices tempor sagittis. Nisl fermentum consequat integer interdum.
+						Здесь вы найдете дополнительные статьи по уроку для изучения
 					</p>
 					<div class="row gtr-50">
+
+						{% for material in lesson.additionalmateriallesson_set.all %}
 						<div class="col-4">
-							<a href="#" class="image fit"><img src="{% static 'lessons/images/pic10.jpg' %}" alt="" /></a>
+							<a href="#" class="image fit"><img src='{{material.image}}' alt="" /></a>
 						</div>
 						<div class="col-8">
-							<h4>Nibh sed cubilia</h4>
+							<h4>{{material.title}}</h4>
 							<p>
-								Amet nullam fringilla nibh nulla convallis tique ante proin.
+								{{material.desc}}
 							</p>
 						</div>
-						<div class="col-4">
-							<a href="#" class="image fit"><img src="{% static 'lessons/images/pic11.jpg' %}" alt="" /></a>
-						</div>
-						<div class="col-8">
-							<h4>Proin sed adipiscing</h4>
-							<p>
-								Amet nullam fringilla nibh nulla convallis tique ante proin.
-							</p>
-						</div>
-						<div class="col-4">
-							<a href="#" class="image fit"><img src="{% static 'lessons/images/pic12.jpg' %}" alt="" /></a>
-						</div>
-						<div class="col-8">
-							<h4>Lorem feugiat magna</h4>
-							<p>
-								Amet nullam fringilla nibh nulla convallis tique ante proin.
-							</p>
-						</div>
-						<div class="col-4">
-							<a href="#" class="image fit"><img src="{% static 'lessons/images/pic13.jpg' %}" alt="" /></a>
-						</div>
-						<div class="col-8">
-							<h4>Sed tempus fringilla</h4>
-							<p>
-								Amet nullam fringilla nibh nulla convallis tique ante proin.
-							</p>
-						</div>
-						<div class="col-4">
-							<a href="#" class="image fit"><img src="{% static 'lessons/images/pic14.jpg' %}" alt="" /></a>
-						</div>
-						<div class="col-8">
-							<h4>Malesuada fermentum</h4>
-							<p>
-								Amet nullam fringilla nibh nulla convallis tique ante proin.
-							</p>
-						</div>
+						{% endfor %}
 					</div>
 
 				</section>
@@ -87,22 +52,16 @@ Details
 				<article id="main">
 					<header>
 						<h2><a href="#">{{lesson.topic}}</a></h2>
-						<p>
-							Morbi convallis lectus malesuada sed fermentum dolore amet
-						</p>
+
 					</header>
+					{% if lesson.is_open %}
 					<iframe width="773" height="355" src="{{lesson.video_link}}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 					<p>
-						Commodo id natoque malesuada sollicitudin elit suscipit. Curae suspendisse mauris posuere accumsan massa
-						posuere lacus convallis tellus interdum. Amet nullam fringilla nibh nulla convallis ut venenatis purus
-						lobortis. Auctor etiam porttitor phasellus tempus cubilia ultrices tempor sagittis. Nisl fermentum
-						consequat integer interdum integer purus sapien. Nibh eleifend nulla nascetur pharetra commodo mi augue
-						interdum tellus. Ornare cursus augue feugiat sodales velit lorem. Semper elementum ullamcorper lacinia
-						natoque aenean scelerisque vel lacinia mollis quam sodales congue.
+						{{lesson.description}}
 					</p>
 					<section>
 						<header>
-							<h3>Post your comment</h3>
+							<h3>Оставьте комментарий</h3>
 						</header>
 						{% if error_message %}
 						<p><strong>{{ error_message }}</strong></p>
@@ -116,7 +75,12 @@ Details
 							<input type="submit">
 						</form>
 						{% else %}
-						<p>Please authorize to post a comment</p>
+						<form action="{% url 'lessons:comment' lesson.id %}" method="post" id="formSubmit">
+							{% csrf_token %}
+							<!-- Create form here   -->
+							<input type="text" name="comment_text" id="commentText_id" placeholder="Авторизуйтесь чтобы оставить коммент" disabled>
+							<input type="submit" disabled>
+						</form>
 						{% endif %}
 					</section>
 					<section>
@@ -133,6 +97,57 @@ Details
 						</p>
 					</section>
 				</article>
+				{% else %}
+				{% if user.is_authenticated %}
+				<iframe width="773" height="355" src="{{lesson.video_link}}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+				<p>
+					{{lesson.description}}
+				</p>
+				<section>
+					<header>
+						<h3>Оставьте комментарий</h3>
+					</header>
+					{% if error_message %}
+					<p><strong>{{ error_message }}</strong></p>
+					{% endif %}
+
+					{% if user.is_authenticated %}
+					<form action="{% url 'lessons:comment' lesson.id %}" method="post" id="formSubmit">
+						{% csrf_token %}
+						<!-- Create form here   -->
+						<input type="text" name="comment_text" id="commentText_id" placeholder="Type your comment">
+						<input type="submit">
+					</form>
+					{% else %}
+					<form action="{% url 'lessons:comment' lesson.id %}" method="post" id="formSubmit">
+						{% csrf_token %}
+						<!-- Create form here   -->
+						<input type="text" name="comment_text" id="commentText_id" placeholder="Авторизуйтесь чтобы оставить коммент" disabled>
+						<input type="submit" disabled>
+					</form>
+					{% endif %}
+				</section>
+				<section>
+					{% if lesson.comment_set.all %}
+					<header>
+						<h3>Comments</h3>
+					</header>
+					<p>
+					<ul>
+						{% for comment in lesson.comment_set.all %}
+						<li>{{comment.comment_text}} -- {{comment.posted_by}}</li>
+						{% endfor %}
+						<li class="newComment"></li>
+					</ul>
+					</p>
+					{% else %}
+					Комментариев к данному уроку нет
+					{% endif %}
+				</section>
+				{% else %}
+				Авторизуйтесь чтобы увидеть контент
+				{% endif %}
+				{% endif %}
 			</div>
 		</div>
 	</div>
