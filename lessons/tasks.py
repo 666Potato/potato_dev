@@ -1,3 +1,4 @@
+from PIL import Image, ImageDraw, ImageFont
 from celery import shared_task
 from pyquery import PyQuery as pq
 import requests
@@ -56,6 +57,34 @@ def pycoders_articles():
             articles.append(article)
 
     return articles
+
+
+def generate_image():
+    # Generating background image
+    background = Image.new('RGBA', (960, 640), color=(255, 112, 146))
+
+    # Getting default image for course
+    image = Image.open('bg-course.png')
+    resized_image = image.resize((round(image.size[0]*0.7), round(image.size[1]*0.7)))
+
+    # Generating background color for default image
+    bg_main = Image.new('RGBA', (resized_image.size[0], resized_image.size[1]), color=(195, 140, 238))
+    bg_main.paste(resized_image, (0, 0), resized_image)
+
+    # Calculating x, y for top left corner of default image
+    offset = (round(background.size[0]/2 - bg_main.size[0]/2), background.size[1] - bg_main.size[1])
+
+    background.paste(bg_main, offset)
+
+    draw = ImageDraw.Draw(background)
+    msg = 'Hello World!'
+    font = ImageFont.truetype('arial.ttf', 44)
+
+    # Getting w, h of the text and calculating positions of x, y for text
+    w, h = font.getsize(msg)
+    draw.text(((background.size[0] - w)/2, round(background.size[1]*0.3)), msg, font=font)
+
+    background.show()
 
 
 @shared_task
