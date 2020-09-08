@@ -1,5 +1,6 @@
 from PIL import Image, ImageDraw, ImageFont
 from celery import shared_task
+
 from pyquery import PyQuery as pq
 import requests
 
@@ -37,8 +38,11 @@ def pycoders_articles():
 
         a_tag = item.find('a')
         is_item_title = 'font-size: 20px' in item.get('style')
-        # Check for sponsor
+        # Check for sponsor and make sure that description has no a tags
         if a_tag is not None and is_item_title:
+            if desc_i < len(article_blocks):
+                if pq(article_blocks[desc_i]).children():
+                    continue
             if sponsor_i < len(article_blocks):
                 if article_blocks[sponsor_i].text in SPONSOR_LABELS:
                     continue
@@ -54,12 +58,12 @@ def pycoders_articles():
                 'desc': desc,
                 'author': author,
             }
+            print(article)
             articles.append(article)
-
     return articles
 
 
-def generate_image(article_title):
+def generate_image(article_author):
     # Generating background image
     background = Image.new('RGBA', (960, 640), color=(255, 112, 146))
 
@@ -77,18 +81,22 @@ def generate_image(article_title):
     background.paste(bg_main, offset)
 
     draw = ImageDraw.Draw(background)
-    font = ImageFont.truetype('arial.ttf', 44)
-
+    font = ImageFont.truetype('arial.ttf', 30)
+    filepath = 'lessons/static/lessons/images/article_images/{0}.png'.format(article_author.split(' ')[0])
     # Getting w, h of the text and calculating positions of x, y for text
-    w, h = font.getsize(article_title)
-    draw.text(((background.size[0] - w)/2, round(background.size[1]*0.3)), article_title, font=font)
+    w, h = font.getsize(article_author)
+    draw.text(((background.size[0] - w)/2, round(background.size[1]*0.3)),
+              'Published by {0}'.format(article_author), font=font)
 
-    background.show()
+    background.save(filepath)
+
+    return '/static/lessons/images/article_images/{0}.png'.format(article_author.split(' ')[0])
 
 
 @shared_task
 def articles_to_db():
     articles = pycoders_articles()
     for article in articles:
+        article_image = generate_image(article['author'])
         Articles.objects.get_or_create(title=article['title'], link=article['link'],
-                                       desc=article['desc'], author=article['author'])
+                                       desc=article['desc'], author=article['author'], image=article_image)

@@ -143,6 +143,9 @@ cython_debug/
 # user uploaded files
 uploads/
 
+# auto generated images for articles
+lessons/static/lessons/images/article_images/
+
 #celery
 celerybeat-schedule.bak
 celerybeat-schedule.dat

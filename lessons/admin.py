@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Lesson, Comment, AdditionalMaterialLesson
+from .models import Lesson, Comment, AdditionalMaterialLesson, Articles
 # Register your models here.
 
 
@@ -14,4 +14,5 @@ class LessonAdmin(admin.ModelAdmin):
 
 admin.site.register(Lesson, LessonAdmin)
 admin.site.register(Comment)
+admin.site.register(Articles)
 

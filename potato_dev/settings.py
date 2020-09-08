@@ -136,7 +136,7 @@ CELERY_BEAT_SCHEDULE = {
     # Executes every Monday at 1pm
     'load-articles': {
          'task': 'lessons.tasks.articles_to_db',
-         'schedule': crontab(hour=7, minute=0, day_of_week=1),
+         'schedule': crontab(hour=7, minute=0, day_of_week=3),
         },
 }
 

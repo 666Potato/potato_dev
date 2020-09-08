@@ -78,7 +78,7 @@ Home
 
 			{% for article in articles %}
 			<article class="col-4 col-12-mobile special">
-				<a href="#" class="image featured"><img src="{% static 'lessons/images/pic01.jpg' %}" alt="" /></a>
+				<a href="#" class="image featured"><img src={{article.image}} alt="" /></a>
 				<header>
 					<h3><a href={{article.link}} target="_blank">{{article.title}}</a></h3>
 				</header>
