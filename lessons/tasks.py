@@ -59,7 +59,7 @@ def pycoders_articles():
     return articles
 
 
-def generate_image():
+def generate_image(article_title):
     # Generating background image
     background = Image.new('RGBA', (960, 640), color=(255, 112, 146))
 
@@ -77,12 +77,11 @@ def generate_image():
     background.paste(bg_main, offset)
 
     draw = ImageDraw.Draw(background)
-    msg = 'Hello World!'
     font = ImageFont.truetype('arial.ttf', 44)
 
     # Getting w, h of the text and calculating positions of x, y for text
-    w, h = font.getsize(msg)
-    draw.text(((background.size[0] - w)/2, round(background.size[1]*0.3)), msg, font=font)
+    w, h = font.getsize(article_title)
+    draw.text(((background.size[0] - w)/2, round(background.size[1]*0.3)), article_title, font=font)
 
     background.show()
 
