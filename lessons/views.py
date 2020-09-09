@@ -27,6 +27,18 @@ class DetailView(generic.DetailView):
         return Lesson.objects.all()
 
 
+class AllArticleView(generic.ListView):
+    template_name = 'lessons/all_articles.html'
+    model = Articles
+    paginate_by = 3
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        context['articles'] = Articles.objects.all()
+        return context
+
+
 @login_required
 @csrf_exempt
 def comment(request, lesson_id):

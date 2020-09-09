@@ -1,0 +1,59 @@
+{% extends 'lessons/base.html' %}
+{% load static %}
+
+{% block title %}
+All articles
+{% endblock %}
+
+{% block content %}
+<div class="wrapper style1">
+
+    <section id="features" class="container special">
+        <header>
+            <h2>Все Статьи</h2>
+        </header>
+        <div class="row">
+
+            {% for article in page_obj %}
+            <article class="col-4 col-12-mobile special">
+                <a href="#" class="image featured"><img src={{article.image}} alt="" /></a>
+                <header>
+                    <h3><a href={{article.link}} target="_blank">{{article.title}}</a></h3>
+                </header>
+                <p>
+                    {{article.desc}}
+                </p>
+            </article>
+            {% empty %}
+            Empty
+            {% endfor %}
+
+        </div>
+    </section>
+</div>
+
+<div class="pagination">
+    {% if page_obj.has_previous %}
+    <a class="pagination-action" href="?page=1">
+        <i class="fa fa-angle-double-left" aria-hidden="true"></i> </a>
+    <a class="pagination-action" href="?page={{ page_obj.previous_page_number }}">
+        <i class="fa fa-angle-left" aria-hidden="true"></i>
+    </a>
+    {% endif %}
+    {% for num in page_obj.paginator.page_range %}
+    {% if page_obj.number == num %}
+    <span class="pagination-number pagination-current">{{ num }}</span>
+    {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+    <a class="pagination-number" href="?page={{ num }}">{{ num }}</a>
+    {% endif %}
+    {% endfor %}
+    {% if page_obj.has_next %}
+    <a class="pagination-action" href="?page={{ page_obj.next_page_number }}">
+        <i class="fa fa-angle-right" aria-hidden="true"></i>
+    </a>
+    <a class="pagination-action" href="?page={{ page_obj.paginator.num_pages }}">
+        <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+    </a>
+    {% endif %}
+</div>
+{% endblock %}
