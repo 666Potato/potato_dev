@@ -58,7 +58,6 @@ def pycoders_articles():
                 'desc': desc,
                 'author': author,
             }
-            print(article)
             articles.append(article)
     return articles
 

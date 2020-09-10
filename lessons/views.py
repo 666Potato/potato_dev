@@ -30,7 +30,7 @@ class DetailView(generic.DetailView):
 class AllArticleView(generic.ListView):
     template_name = 'lessons/all_articles.html'
     model = Articles
-    paginate_by = 3
+    paginate_by = 9
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
