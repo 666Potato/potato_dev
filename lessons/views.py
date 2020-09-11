@@ -32,12 +32,6 @@ class AllArticleView(generic.ListView):
     model = Articles
     paginate_by = 9
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-
-        context['articles'] = Articles.objects.all()
-        return context
-
 
 @login_required
 @csrf_exempt

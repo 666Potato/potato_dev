@@ -1,3 +1,7 @@
+import os
+import random
+import time
+
 from PIL import Image, ImageDraw, ImageFont
 from celery import shared_task
 
@@ -7,6 +11,7 @@ import requests
 from lessons.models import Articles
 
 SPONSOR_LABELS = ('sponsor', 'podcast', 'video')
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 def pycoders_articles():
@@ -63,11 +68,17 @@ def pycoders_articles():
 
 
 def generate_image(article_author):
+    # Random colors
+    r = random.randint(0,255)
+    g = random.randint(0, 255)
+    b = random.randint(0, 255)
+    rgb = tuple([r, g, b])
+
     # Generating background image
-    background = Image.new('RGBA', (960, 640), color=(255, 112, 146))
+    background = Image.new('RGBA', (960, 640), color=rgb)
 
     # Getting default image for course
-    image = Image.open('bg-course.png')
+    image = Image.open('resources/bg-course.png')
     resized_image = image.resize((round(image.size[0]*0.7), round(image.size[1]*0.7)))
 
     # Generating background color for default image
@@ -81,7 +92,10 @@ def generate_image(article_author):
 
     draw = ImageDraw.Draw(background)
     font = ImageFont.truetype('arial.ttf', 30)
-    filepath = 'lessons/static/lessons/images/article_images/{0}.png'.format(article_author.split(' ')[0])
+    timestamp = time.localtime()
+    ts = time.strftime("%Y-%m-%d", timestamp)
+    path = 'uploads/articles/{0}_{1}.png'.format(article_author.split(' ')[0], ts)
+    filepath = os.path.join(BASE_DIR, path)
     # Getting w, h of the text and calculating positions of x, y for text
     w, h = font.getsize(article_author)
     draw.text(((background.size[0] - w)/2, round(background.size[1]*0.3)),
