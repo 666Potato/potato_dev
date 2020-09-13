@@ -103,7 +103,7 @@ def generate_image(article_author):
 
     background.save(filepath)
 
-    return '/static/lessons/images/article_images/{0}.png'.format(article_author.split(' ')[0])
+    return filepath
 
 
 @shared_task
