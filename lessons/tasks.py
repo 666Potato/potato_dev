@@ -69,7 +69,7 @@ def pycoders_articles():
 
 def generate_image(article_author):
     # Random colors
-    r = random.randint(0,255)
+    r = random.randint(0, 255)
     g = random.randint(0, 255)
     b = random.randint(0, 255)
     rgb = tuple([r, g, b])
@@ -78,7 +78,7 @@ def generate_image(article_author):
     background = Image.new('RGBA', (960, 640), color=rgb)
 
     # Getting default image for course
-    image = Image.open('resources/bg-course.png')
+    image = Image.open(os.path.join(BASE_DIR, 'resources/bg-course.png'))
     resized_image = image.resize((round(image.size[0]*0.7), round(image.size[1]*0.7)))
 
     # Generating background color for default image
