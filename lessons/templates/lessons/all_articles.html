@@ -16,7 +16,7 @@ All articles
 
             {% for article in page_obj %}
             <article class="col-4 col-12-mobile special">
-                <a href="#" class="image featured"><img src={{article.image.url}} alt="" /></a>
+                <a href="#" class="image featured"><img src='/{{article.image.url}}' alt="" /></a>
                 <header>
                     <h3><a href={{article.link}} target="_blank">{{ article.title }}</a></h3>
                 </header>
