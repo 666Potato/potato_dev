@@ -6,7 +6,7 @@ class Lesson(models.Model):
     topic = models.CharField(max_length=200)
     author = models.CharField(max_length=200)
     video_link = models.CharField(max_length=200)
-    image_link = models.CharField(max_length=200)
+    image_link = models.ImageField(verbose_name='Upload image', upload_to='lessons/images')
     date_pub = models.DateTimeField('Date Published')
     syllabus = models.CharField(max_length=200, default='Lesson syllabus')
     description = models.TextField(default='Lesson description goes here')
@@ -38,7 +38,7 @@ class Articles(models.Model):
     link = models.CharField(max_length=1000)
     desc = models.TextField()
     author = models.CharField(max_length=200)
-    image = models.CharField(max_length=200)
+    image = models.ImageField(verbose_name='Upload image', upload_to='articles/images')
     date_added = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

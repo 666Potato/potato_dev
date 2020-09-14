@@ -11,23 +11,32 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+
 from celery.schedules import crontab
+import environ
 import sentry_sdk
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+env = environ.Env()
+environ.Env.read_env(env_file=os.path.join(BASE_DIR, '.env'))
+
+IS_LOCAL = env('IS_LOCAL', cast=bool, default=False)
+
+APP_ENVIRONMENT = env('APP_ENV', default='development')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '#v0gu$#c#($s^$rs7_723x1xt2q*kesq-rp=kw4rwxy^(o=&%('
+SECRET_KEY = env('SECRET_KEY', default='SECRET KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env('DEBUG', cast=bool, default=(APP_ENVIRONMENT != 'production'))
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = env('ALLOWED_HOSTS', cast=tuple, default=('0.0.0.0', '127.0.0.1'))
 
 
 # Application definition
@@ -144,7 +153,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'uploads')
 
 MEDIA_URL = 'uploads/'
 
-sentry_sdk.init(
-    "https://d6a69326eaa0473e820296374b2ee327@o437434.ingest.sentry.io/5400035",
-    traces_sample_rate = 1.0
-)
+if not IS_LOCAL:
+    sentry_sdk.init(
+        "https://d6a69326eaa0473e820296374b2ee327@o437434.ingest.sentry.io/5400035",
+        traces_sample_rate = 1.0
+    )

@@ -102,8 +102,7 @@ def generate_image(article_author):
               'Published by {0}'.format(article_author), font=font)
 
     background.save(filepath)
-
-    return filepath
+    return path.split('/', 1)[1]
 
 
 @shared_task
@@ -111,5 +110,6 @@ def articles_to_db():
     articles = pycoders_articles()
     for article in articles:
         article_image = generate_image(article['author'])
+        print(article_image)
         Articles.objects.get_or_create(title=article['title'], link=article['link'],
                                        desc=article['desc'], author=article['author'], image=article_image)
