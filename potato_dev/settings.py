@@ -36,7 +36,7 @@ SECRET_KEY = env('SECRET_KEY', default='SECRET KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env('DEBUG', cast=bool, default=(APP_ENVIRONMENT != 'production'))
 
-ALLOWED_HOSTS = env('ALLOWED_HOSTS', cast=list, default=('0.0.0.0', '127.0.0.1'))
+ALLOWED_HOSTS = env('ALLOWED_HOSTS', cast=lambda x: [v.strip() for v in x.split(',')], default=('0.0.0.0', '127.0.0.1'))
 
 
 # Application definition
@@ -131,6 +131,8 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
+
+STATIC_ROOT = os.path.join(BASE_DIR, "static/")
 
 STATIC_URL = '/static/'
 
