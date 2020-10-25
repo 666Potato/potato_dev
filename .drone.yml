@@ -1,0 +1,19 @@
+kind: pipeline
+type: ssh
+name: default
+
+server:
+  host:
+    from_secret: host
+  user:
+    from_secret: user
+  password:
+    from_secret: password
+
+steps:
+- name: greeting
+  commands:
+  - cd /var/www/potato/potato_dev
+  - git pull origin master
+  - pip3 install -r requirements.txt
+  - supervisorctl restart potato
